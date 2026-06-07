@@ -87,7 +87,7 @@
                     </div>
                 </header>
                     <!-- SEARCH AND LOCATION INPUTS -->
-                <section lass="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5           to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5           to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
                     <div>
                         <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Search any city or use location.</h2>
                     </div>
@@ -113,71 +113,71 @@
                     </div>   
                 </section>
                     <!-- WEATHER DETAILS AND FORECASTS -->
-                    <section>
-                        <article>
-                            <div>
+                    <section class="grid gap-5 mb-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)] max-lg:grid-cols-1">
+                        <article class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                            <divclass="flex items-center justify-between gap-4 max-md:grid">
                                 <div>
-                                <p>Current weather</p>
-                                <h2 id="locationName">Loading...</h2>
-                                <p id="locationMeta">Fetching latest forecast details.</p>
+                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Current weather</p>
+                                <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.8rem,4vw,3rem)]" id="locationName">Loading...</h2>
+                                <p  class="text-muted" id="locationMeta">Fetching latest forecast details.</p>
                                 </div>
-                                <div id="conditionStamp">Forecast</div>
-                            </div>
+                                <div class="py-[0.7rem] px-4 rounded-full bg-accent-soft text-[#f8fbff] text-[0.88rem] uppercase tracking-[0.14em]" id="conditionStamp">Forecast</div>
+                            </divclass=>
 
-                            <div>
-                                <div>
-                                    <p id="currentTemp">--&deg;</p>
+                            <div class="flex items-stretch justify-between gap-4 my-[1.4rem] max-md:grid">
+                                <div class="flex-1 flex items-end justify-start gap-4 max-md:grid">
+                                    <p class="m-0 font-display text-[clamp(4rem,11vw,7rem)] leading-[0.9]" id="currentTemp">--&deg;</p>
                                     <div>
-                                        <p id="conditionText">Preparing weather summary</p>
-                                        <p id="updatedTime">Updated --</p>
+                                        <p class="m-0 text-[1.1rem]" id="conditionText">Preparing weather summary</p>
+                                        <p class=" text-muted" id="updatedTime">Updated --</p>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <p>Today</p>
-                                    <p id="todayRange">-- / --</p>
-                                    <p id="feelsLikeText">Feels like --</p>
+                                <div class="min-w-[230px] p-[1rem_1.1rem] border border-white/10 bg-white/5 rounded-lg max-md:min-w-0">
+                                    <p  class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Today</p>
+                                    <p class="my-[0.4rem] text-[1.55rem] font-display" id="todayRange">-- / --</p>
+                                    <p class="text-muted" id="feelsLikeText">Feels like --</p>
                                 </div>
                             </div>
 
-                            <div id="metricGrid">
-                                <div>
-                                    <p>Humidity</p>
-                                    <p id="humidityValue">--</p>
+                            <div class="grid grid-cols-4 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="metricGrid">
+                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Humidity</p>
+                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="humidityValue">--</p>
                                 </div>
-                                <div>
-                                    <p>Wind</p>
-                                    <p id="windValue">--</p>
+                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Wind</p>
+                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="windValue">--</p>
                                 </div>
-                                <div>
-                                    <p>Precipitation</p>
-                                    <p id="precipitationValue">--</p>
+                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Precipitation</p>
+                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="precipitationValue">--</p>
                                 </div>
-                                <div>
-                                    <p>Pressure</p>
-                                    <p id="pressureValue">--</p>
+                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Pressure</p>
+                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="pressureValue">--</p>
                                 </div>
                             </div>
                         </article>
 
-                        <aside>
-                            <div>
-                                <p>Sun cycle</p>
-                                <div>
-                                    <div>
-                                        <p>Sunrise</p>
-                                        <p id="sunriseValue">--</p>
+                        <aside class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                            <div >
+                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sun cycle</p>
+                                <div class="flex items-center justify-between gap-4 mt-[0.7rem] max-md:grid">
+                                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg flex-1">
+                                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunrise</p>
+                                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunriseValue">--</p>
                                     </div>
-                                    <div>
-                                        <p>Sunset</p>
-                                        <p id="sunsetValue">--</p>
+                                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunset</p>
+                                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunsetValue">--</p>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <p>Forecast note</p>
-                                <p id="forecastNarrative">
+                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Forecast note</p>
+                                <p class="mt-[0.55rem] text-base leading-[1.7] text-[#eef4fb]" id="forecastNarrative">
                                     Weather insights will appear here once data is loaded.
                                 </p>
                             </div>
@@ -186,29 +186,29 @@
                 
 
                 <!-- NEXT 12 HOURS AND 7-DAY FORECAST -->
-                <section>
-                    <div>
-                        <div>
-                            <p>Hourly forecast</p>
-                            <h2>Next 12 hours</h2>
+                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                    <div class="flex items-center justify-between gap-4 mb-4">
+                        <div >
+                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Hourly forecast</p>
+                            <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Next 12 hours</h2>
                         </div>
                     </div>
-                    <div id="hourlyGrid"></div>
+                    <div class="grid grid-cols-[repeat(12,minmax(96px,1fr))] gap-[0.8rem] overflow-x-auto pb-1 max-md:grid-cols-[repeat(12,minmax(130px,1fr))]" id="hourlyGrid"></div>
                 </section>
 
-                <section>
-                    <div>
-                        <div>
-                            <p>Extended forecast</p>
-                            <h2>Seven-day outlook</h2>
+                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                    <div class="flex items-center justify-between gap-4 mb-4">
+                        <div >
+                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Extended forecast</p>
+                            <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Seven-day outlook</h2>
                         </div>
                     </div>
-                    <div id="dailyGrid"></div>
+                    <div class="grid grid-cols-7 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="dailyGrid"></div>
                 </section>
             </main>
 
         <!-- footer>   -->
-            <footer>
+            <footer class="text-center text-muted text-sm py-6" >
                 <p>Created by Aakash solanki.</p>
             </footer>
 
