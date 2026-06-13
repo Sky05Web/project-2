@@ -1,217 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Skycast | Weather Forecast Dashboard</title>
 
-<!-- Google Fonts link -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
-    rel="stylesheet"/>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-<!-- icnon link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
-<!-- tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                                
-                        panel: 'var(--panel)',
-                        'panel-strong': 'var(--panel-strong)',
-                        line: 'var(--line)',
-                        text: 'var(--text)',
-                        muted: 'var(--muted)',
-                        accent: 'var(--accent)',
-                        'accent-soft': 'var(--accent-soft)',
+                        panel: "var(--panel)",
+                        "panel-strong": "var(--panel-strong)",
+                        line: "var(--line)",
+                        text: "var(--text)",
+                        muted: "var(--muted)",
+                        accent: "var(--accent)",
+                        "accent-soft": "var(--accent-soft)",
                     },
                     fontFamily: {
-                        sans: ['"DM Sans"', 'sans-serif'],
-                        display: ['"Space Grotesk"', 'sans-serif'],               
+                        sans: ['"DM Sans"', "sans-serif"],
+                        display: ['"Space Grotesk"', "sans-serif"],
                     },
                     borderRadius: {
-                        xl: '28px',
-                        lg: '22px',
-                        md: '18px',
-                        sm: '12px',
+                        xl: "28px",
+                        lg: "22px",
+                        md: "18px",
+                        sm: "12px",
                     },
                     animation: {
-                        'spin-reverse': 'spin 1s linear infinite reverse',
-                    }
+                        "spin-reverse": "spin 1s linear infinite reverse",
+                    },
                 },
             },
         };
     </script>
     <link rel="stylesheet" href="styles.css" />
-
 </head>
-    <body>
-            <!-- Custom Toast/Alert Container -->
-            <div id="toastContainer"   class="fixed top-5 right-5 z-50 flex flex-col gap-3 w-80 max-w-[90vw]"></div>
+<body>
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col gap-3 w-80 max-w-[90vw]"></div>
 
-            <!-- Unit Toggle -->
-            <button id="unitToggle" class="fixed top-5 left-5 z-40 py-2 px-4 rounded-full bg-panel border border-line text-text hover:bg-white/10 transition-all font-bold backdrop-blur-md cursor-pointer shadow-lg">
-                Switch to °F
-            </button>
+    <button
+        id="unitToggle"
+        class="fixed top-5 left-5 z-40 py-2 px-4 rounded-full bg-panel border border-line text-text hover:bg-white/10 transition-all font-bold backdrop-blur-md cursor-pointer shadow-lg"
+    >
+        Switch to &deg;F
+    </button>
 
-            <!-- Global Loading Overlay -->
-            <div id="loadingOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
-                    <div class="relative w-24 h-24 mb-6">
-                        <div class="absolute inset-0 rounded-full border-t-[4px] border-accent animate-spin" style="box-shadow: 0 -5px 25px var(--accent-soft);"></div>
-                        <div class="absolute inset-2 rounded-full border-b-[4px] border-white/50 animate-spin-reverse"></div>
-                        <i class="fa-solid fa-satellite-dish text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl animate-pulse"></i>
-                    </div>>
-                <p class="text-accent font-display text-lg tracking-[0.2em] animate-pulse uppercase">Fetching Data...</p>
+    <div
+        id="loadingOverlay"
+        class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 backdrop-blur-md hidden transition-opacity duration-300 opacity-0"
+    >
+        <div class="relative w-24 h-24 mb-6">
+            <div
+                class="absolute inset-0 rounded-full border-t-[4px] border-accent animate-spin"
+                style="box-shadow: 0 -5px 25px var(--accent-soft);"
+            ></div>
+            <div class="absolute inset-2 rounded-full border-b-[4px] border-white/50 animate-spin-reverse"></div>
+            <i class="fa-solid fa-satellite-dish text-accent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-3xl animate-pulse"></i>
+        </div>
+        <p class="text-accent font-display text-lg tracking-[0.2em] animate-pulse uppercase">Fetching Data...</p>
+    </div>
+
+    <main class="w-[min(1180px,calc(100%-2rem))] mx-auto pt-8 pb-12 max-md:w-full max-md:px-4 max-md:pt-4">
+        <header class="grid gap-5 mb-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)] lg:items-end max-lg:grid-cols-1">
+            <div>
+                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sky Weather Forecast</p>
+                <h1 class="m-0 font-display tracking-[-0.03em] text-[clamp(2.3rem,6vw,4.9rem)] leading-[0.95] max-w-[11ch]">
+                    Smart forecasts. Better decisions.
+                </h1>
+                <p class="max-w-[52ch] text-[1.02rem] leading-[1.7] mt-4 text-[#dbe7f7]">
+                    Smart weather insights with live conditions, hourly tracking, and forecasts for the week ahead.
+                </p>
+            </div>
+
+            <div class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] min-h-[220px] max-lg:min-h-[180px] max-md:p-[1.1rem] flex flex-col justify-end before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Current outlook</p>
+                <p class="mt-[0.55rem] mb-[0.25rem] text-[clamp(3rem,6vw,4.6rem)] font-display" id="heroTemp">--&deg;</p>
+                <p class="m-0 text-base text-[#eef4fb] flex items-center gap-2" id="heroCaption">Waiting for forecast data</p>
+            </div>
+        </header>
+
+        <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+            <div>
+                <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">
+                    Search any city or use location.
+                </h2>
+            </div>
+
+            <div class="relative mt-[1.15rem]">
+                <form class="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-[0.85rem] max-md:grid-cols-1" id="searchForm">
+                    <label class="sr-only" for="cityInput">Search city</label>
+                    <input
+                        id="cityInput"
+                        name="city"
+                        type="text"
+                        placeholder="Search for a city"
+                        autocomplete="off"
+                        required
+                        class="min-w-0 py-4 px-[1.1rem] bg-white/10 text-text outline-none rounded-full border border-transparent focus:border-accent transition-colors placeholder-white/60"
+                    />
+                    <button
+                        type="submit"
+                        id="searchButton"
+                        class="py-[0.95rem] px-[1.2rem] bg-accent text-[#041018] font-bold rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all disabled:opacity-65 disabled:cursor-wait disabled:transform-none cursor-pointer"
+                    >
+                        Search
+                    </button>
+                    <button
+                        type="button"
+                        id="geoButton"
+                        class="py-[0.95rem] px-[1.2rem] bg-white/5 text-text rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all disabled:opacity-65 disabled:cursor-wait disabled:transform-none cursor-pointer"
+                    >
+                        Current location
+                    </button>
+                </form>
+
+                <div class="grid gap-[0.7rem] mt-4" id="searchResults" hidden></div>
+                <div class="grid gap-[0.7rem] mt-4" id="recentSearches" hidden></div>
+
+                <div class="flex flex-wrap gap-[0.65rem] mt-4" aria-label="Suggested cities">
+                    <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="New York">New York</button>
+                    <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="London">London</button>
+                    <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="Tokyo">Tokyo</button>
+                    <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="Sydney">Sydney</button>
                 </div>
-        
-        <!-- Main Content -->
-            <main class="w-[min(1180px,calc(100%-2rem))] mx-auto pt-8 pb-12 max-md:w-full max-md:px-4 max-md:pt-4">
-                <header class="grid gap-5 mb-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)] lg:items-end max-lg:grid-cols-1">
+            </div>
+        </section>
+
+        <section class="grid gap-5 mb-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)] max-lg:grid-cols-1">
+            <article class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                <div class="flex items-center justify-between gap-4 max-md:grid">
                     <div>
-                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sky Weather Forecast</p>
-                        <h1 class="m-0 font-display tracking-[-0.03em] text-[clamp(2.3rem,6vw,4.9rem)] leading-[0.95] max-w-[11ch]">Smart forecasts. Better decisions.</h1>
-                        <p  class="max-w-[52ch] text-[1.02rem] leading-[1.7] mt-4 text-[#dbe7f7]">
-                            Smart weather insights with live conditions, hourly tracking, and forecasts for the week ahead..
-                        </p>
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Current weather</p>
+                        <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.8rem,4vw,3rem)]" id="locationName">Loading...</h2>
+                        <p class="text-muted" id="locationMeta">Fetching latest forecast details.</p>
                     </div>
-                    <div class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] min-h-[220px] max-lg:min-h-[180px] max-md:p-[1.1rem] flex flex-col justify-end before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Current outlook</p>
-                        <p  class="mt-[0.55rem] mb-[0.25rem] text-[clamp(3rem,6vw,4.6rem)] font-display" id="heroTemp">--&deg;</p>
-                        <p  class="m-0 text-base text-[#eef4fb] flex items-center gap-2"  id="heroCaption">Waiting for forecast data</p>
+                    <div class="py-[0.7rem] px-4 rounded-full bg-accent-soft text-[#f8fbff] text-[0.88rem] uppercase tracking-[0.14em]" id="conditionStamp">
+                        Forecast
                     </div>
-                </header>
-                    <!-- SEARCH AND LOCATION INPUTS -->
-                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5           to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                    <div>
-                        <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Search any city or use location.</h2>
-                    </div>
+                </div>
 
-                    <div class="relative mt-[1.15rem]">
-                        <form class="grid grid-cols-[minmax(0,1fr)_auto_auto] gap-[0.85rem] max-md:grid-cols-1" id="searchForm">
-                            <label  class="sr-only" for="cityInput">Search city</label>
-                            <input id="cityInput" name="city" type="text" placeholder="Search for a city" autocomplete="off" required  class="min-w-0 py-4 px-[1.1rem] bg-white/10 text-text outline-none rounded-full border border-transparent focus:border-accent transition-colors placeholder-white/60"/>
-                            <button type="submit" id="searchButton" class="py-[0.95rem] px-[1.2rem] bg-accent text-[#041018] font-bold rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all disabled:opacity-65 disabled:cursor-wait disabled:transform-none cursor-pointer">Search</button>
-                            <button type="button" id="geoButton" class="py-[0.95rem] px-[1.2rem] bg-white/5 text-text rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all disabled:opacity-65 disabled:cursor-wait disabled:transform-none cursor-pointer">Current location</button>
-                        </form>
-
-                        <div class="flex flex-wrap gap-[0.65rem] mt-4"  aria-label="Suggested cities">
-                            <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="New York">New York</button>
-                            <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="London">London</button>
-                            <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="Tokyo">Tokyo</button>
-                            <button type="button" class="py-[0.65rem] px-[0.95rem] bg-white/5 text-text cursor-pointer rounded-full border border-transparent hover:-translate-y-[1px] focus-visible:border-accent transition-all" data-city="Sydney">Sydney</button>
-                                
-                            <!-- Dropdown for Recent Searches -->
-                            <div class="grid gap-[0.7rem] mt-4" id="recentSearches" hidden></div>
-                        </div>
-
-                    </div>   
-                </section>
-                    <!-- WEATHER DETAILS AND FORECASTS -->
-                    <section class="grid gap-5 mb-5 lg:grid-cols-[minmax(0,1.5fr)_minmax(280px,0.8fr)] max-lg:grid-cols-1">
-                        <article class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                            <div class="flex items-center justify-between gap-4 max-md:grid">
-                                <div>
-                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Current weather</p>
-                                <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.8rem,4vw,3rem)]" id="locationName">Loading...</h2>
-                                <p  class="text-muted" id="locationMeta">Fetching latest forecast details.</p>
-                                </div>
-                                <div class="py-[0.7rem] px-4 rounded-full bg-accent-soft text-[#f8fbff] text-[0.88rem] uppercase tracking-[0.14em]" id="conditionStamp">Forecast</div>
-                            </div>
-
-                            <div class="flex items-stretch justify-between gap-4 my-[1.4rem] max-md:grid">
-                                <div class="flex-1 flex items-end justify-start gap-4 max-md:grid">
-                                    <p class="m-0 font-display text-[clamp(4rem,11vw,7rem)] leading-[0.9]" id="currentTemp">--&deg;</p>
-                                    <div>
-                                        <p class="m-0 text-[1.1rem]" id="conditionText">Preparing weather summary</p>
-                                        <p class=" text-muted" id="updatedTime">Updated --</p>
-                                    </div>
-                                </div>
-
-                                <div class="min-w-[230px] p-[1rem_1.1rem] border border-white/10 bg-white/5 rounded-lg max-md:min-w-0">
-                                    <p  class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Today</p>
-                                    <p class="my-[0.4rem] text-[1.55rem] font-display" id="todayRange">-- / --</p>
-                                    <p class="text-muted" id="feelsLikeText">Feels like --</p>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-4 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="metricGrid">
-                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
-                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Humidity</p>
-                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="humidityValue">--</p>
-                                </div>
-                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
-                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Wind</p>
-                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="windValue">--</p>
-                                </div>
-                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
-                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Precipitation</p>
-                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="precipitationValue">--</p>
-                                </div>
-                                <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
-                                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Pressure</p>
-                                    <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="pressureValue">--</p>
-                                </div>
-                            </div>
-                        </article>
-
-                        <aside class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                            <div >
-                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sun cycle</p>
-                                <div class="flex items-center justify-between gap-4 mt-[0.7rem] max-md:grid">
-                                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg flex-1">
-                                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunrise</p>
-                                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunriseValue">--</p>
-                                    </div>
-                                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
-                                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunset</p>
-                                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunsetValue">--</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Forecast note</p>
-                                <p class="mt-[0.55rem] text-base leading-[1.7] text-[#eef4fb]" id="forecastNarrative">
-                                    Weather insights will appear here once data is loaded.
-                                </p>
-                            </div>
-                        </aside>
-                    </section>
-                
-
-                <!-- NEXT 12 HOURS AND 7-DAY FORECAST -->
-                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                    <div class="flex items-center justify-between gap-4 mb-4">
-                        <div >
-                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Hourly forecast</p>
-                            <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Next 12 hours</h2>
+                <div class="flex items-stretch justify-between gap-4 my-[1.4rem] max-md:grid">
+                    <div class="flex-1 flex items-end justify-start gap-4 max-md:grid">
+                        <p class="m-0 font-display text-[clamp(4rem,11vw,7rem)] leading-[0.9]" id="currentTemp">--&deg;</p>
+                        <div>
+                            <p class="m-0 text-[1.1rem]" id="conditionText">Preparing weather summary</p>
+                            <p class="text-muted" id="updatedTime">Updated --</p>
                         </div>
                     </div>
-                    <div class="grid grid-cols-[repeat(12,minmax(96px,1fr))] gap-[0.8rem] overflow-x-auto pb-1 max-md:grid-cols-[repeat(12,minmax(130px,1fr))]" id="hourlyGrid"></div>
-                </section>
 
-                <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
-                    <div class="flex items-center justify-between gap-4 mb-4">
-                        <div >
-                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Extended forecast</p>
-                            <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Seven-day outlook</h2>
+                    <div class="min-w-[230px] p-[1rem_1.1rem] border border-white/10 bg-white/5 rounded-lg max-md:min-w-0">
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Today</p>
+                        <p class="my-[0.4rem] text-[1.55rem] font-display" id="todayRange">-- / --</p>
+                        <p class="text-muted" id="feelsLikeText">Feels like --</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="metricGrid">
+                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Humidity</p>
+                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="humidityValue">--</p>
+                    </div>
+                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Wind</p>
+                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="windValue">--</p>
+                    </div>
+                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Precipitation</p>
+                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="precipitationValue">--</p>
+                    </div>
+                    <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                        <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Pressure</p>
+                        <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="pressureValue">--</p>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+                <div>
+                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sun cycle</p>
+                    <div class="flex items-center justify-between gap-4 mt-[0.7rem] max-md:grid">
+                        <div class="p-4 border border-white/10 bg-white/5 rounded-lg flex-1">
+                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunrise</p>
+                            <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunriseValue">--</p>
+                        </div>
+                        <div class="p-4 border border-white/10 bg-white/5 rounded-lg">
+                            <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Sunset</p>
+                            <p class="mt-[0.35rem] text-[1.28rem] font-bold" id="sunsetValue">--</p>
                         </div>
                     </div>
-                    <div class="grid grid-cols-7 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="dailyGrid"></div>
-                </section>
-            </main>
+                </div>
 
-        <!-- footer>   -->
-            <footer class="text-center text-muted text-sm py-6" >
-                <p>Created by Aakash solanki.</p>
-            </footer>
+                <div>
+                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Forecast note</p>
+                    <p class="mt-[0.55rem] text-base leading-[1.7] text-[#eef4fb]" id="forecastNarrative">
+                        Weather insights will appear here once data is loaded.
+                    </p>
+                </div>
+            </aside>
+        </section>
 
-        <script src="app.js"></script>
-    </body>
+        <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+            <div class="flex items-center justify-between gap-4 mb-4">
+                <div>
+                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Hourly forecast</p>
+                    <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Next 12 hours</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-[repeat(12,minmax(96px,1fr))] gap-[0.8rem] overflow-x-auto pb-1 max-md:grid-cols-[repeat(12,minmax(130px,1fr))]" id="hourlyGrid"></div>
+        </section>
+
+        <section class="mb-5 relative overflow-hidden border border-line rounded-xl bg-panel bg-gradient-to-b from-white/5 to-transparent backdrop-blur-[16px] shadow-panel p-[1.4rem] max-md:p-[1.1rem] before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-40 before:h-40 before:bg-[radial-gradient(circle,var(--accent-soft),transparent_68%)] before:pointer-events-none">
+            <div class="flex items-center justify-between gap-4 mb-4">
+                <div>
+                    <p class="uppercase tracking-[0.16em] text-[0.74rem] text-muted">Extended forecast</p>
+                    <h2 class="m-0 font-display tracking-[-0.03em] text-[clamp(1.5rem,3vw,2.3rem)] mt-1">Seven-day outlook</h2>
+                </div>
+            </div>
+            <div class="grid grid-cols-7 gap-[0.85rem] max-lg:grid-cols-2 max-md:grid-cols-1" id="dailyGrid"></div>
+        </section>
+    </main>
+
+    <footer class="text-center text-muted text-sm py-6">
+        <p>Created by Aakash solanki.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
 </html>
