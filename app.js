@@ -1,3 +1,4 @@
+
 const WEATHER_CODES = {
   0: { label: "Clear sky", theme: "clear", stamp: "Clear" },
   1: { label: "Mainly clear", theme: "clear", stamp: "Bright" },
@@ -27,6 +28,63 @@ const WEATHER_CODES = {
   95: { label: "Thunderstorm", theme: "storm", stamp: "Thunder" },
   96: { label: "Thunderstorm with hail", theme: "storm", stamp: "Thunder" },
   99: { label: "Strong thunderstorm with hail", theme: "storm", stamp: "Thunder" },
+  
+ 
+  200: { label: "Thunderstorm with light rain", theme: "storm", stamp: "Thunder" },
+  201: { label: "Thunderstorm with rain", theme: "storm", stamp: "Thunder" },
+  202: { label: "Thunderstorm with heavy rain", theme: "storm", stamp: "Thunder" },
+  210: { label: "Light thunderstorm", theme: "storm", stamp: "Thunder" },
+  211: { label: "Thunderstorm", theme: "storm", stamp: "Thunder" },
+  212: { label: "Heavy thunderstorm", theme: "storm", stamp: "Thunder" },
+  221: { label: "Ragged thunderstorm", theme: "storm", stamp: "Thunder" },
+  230: { label: "Thunderstorm with light drizzle", theme: "storm", stamp: "Thunder" },
+  231: { label: "Thunderstorm with drizzle", theme: "storm", stamp: "Thunder" },
+  232: { label: "Thunderstorm with heavy drizzle", theme: "storm", stamp: "Thunder" },
+  300: { label: "Light drizzle", theme: "rain", stamp: "Drizzle" },
+  301: { label: "Drizzle", theme: "rain", stamp: "Drizzle" },
+  302: { label: "Heavy drizzle", theme: "rain", stamp: "Drizzle" },
+  310: { label: "Light rain drizzle", theme: "rain", stamp: "Drizzle" },
+  311: { label: "Rain drizzle", theme: "rain", stamp: "Drizzle" },
+  312: { label: "Heavy rain drizzle", theme: "rain", stamp: "Drizzle" },
+  313: { label: "Shower rain and drizzle", theme: "rain", stamp: "Showers" },
+  314: { label: "Heavy shower rain and drizzle", theme: "rain", stamp: "Showers" },
+  321: { label: "Shower drizzle", theme: "rain", stamp: "Drizzle" },
+  500: { label: "Light rain", theme: "rain", stamp: "Rain" },
+  501: { label: "Moderate rain", theme: "rain", stamp: "Rain" },
+  502: { label: "Heavy rain", theme: "rain", stamp: "Rain" },
+  503: { label: "Very heavy rain", theme: "rain", stamp: "Rain" },
+  504: { label: "Extreme rain", theme: "rain", stamp: "Rain" },
+  511: { label: "Freezing rain", theme: "snow", stamp: "Icy" },
+  520: { label: "Light shower rain", theme: "rain", stamp: "Showers" },
+  521: { label: "Shower rain", theme: "rain", stamp: "Showers" },
+  522: { label: "Heavy shower rain", theme: "rain", stamp: "Showers" },
+  531: { label: "Ragged shower rain", theme: "rain", stamp: "Showers" },
+  600: { label: "Light snow", theme: "snow", stamp: "Snow" },
+  601: { label: "Snow", theme: "snow", stamp: "Snow" },
+  602: { label: "Heavy snow", theme: "snow", stamp: "Snow" },
+  611: { label: "Sleet", theme: "snow", stamp: "Snow" },
+  612: { label: "Light shower sleet", theme: "snow", stamp: "Snow" },
+  613: { label: "Shower sleet", theme: "snow", stamp: "Snow" },
+  615: { label: "Light rain and snow", theme: "snow", stamp: "Snow" },
+  616: { label: "Rain and snow", theme: "snow", stamp: "Snow" },
+  620: { label: "Light shower snow", theme: "snow", stamp: "Snow" },
+  621: { label: "Shower snow", theme: "snow", stamp: "Snow" },
+  622: { label: "Heavy shower snow", theme: "snow", stamp: "Snow" },
+  701: { label: "Mist", theme: "fog", stamp: "Fog" },
+  711: { label: "Smoke", theme: "fog", stamp: "Fog" },
+  721: { label: "Haze", theme: "fog", stamp: "Fog" },
+  731: { label: "Sand/Dust", theme: "fog", stamp: "Fog" },
+  741: { label: "Fog", theme: "fog", stamp: "Fog" },
+  751: { label: "Sand", theme: "fog", stamp: "Fog" },
+  761: { label: "Dust", theme: "fog", stamp: "Fog" },
+  762: { label: "Volcanic ash", theme: "fog", stamp: "Fog" },
+  771: { label: "Squalls", theme: "storm", stamp: "Storm" },
+  781: { label: "Tornado", theme: "storm", stamp: "Storm" },
+  800: { label: "Clear sky", theme: "clear", stamp: "Clear" },
+  801: { label: "Few clouds", theme: "cloudy", stamp: "Clouds" },
+  802: { label: "Scattered clouds", theme: "cloudy", stamp: "Clouds" },
+  803: { label: "Broken clouds", theme: "cloudy", stamp: "Overcast" },
+  804: { label: "Overcast clouds", theme: "cloudy", stamp: "Overcast" },
 };
 
 const elements = {
@@ -64,3 +122,8 @@ const elements = {
 let isCelsius = true;
 let currentWeatherData = null;
 
+const OPENWEATHER_API_KEY = "bb89d1ad0d33a1559538eea20cc4ce5b";
+const WEATHER_ENDPOINT = "https://api.openweathermap.org/data/2.5/weather";
+const GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct";
+const REVERSE_GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/reverse";
+const FORECAST_ENDPOINT = "https://api.open-meteo.com/v1/forecast";
