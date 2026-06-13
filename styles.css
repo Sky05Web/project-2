@@ -37,3 +37,84 @@ body::after {
   opacity: 0;
   transition: opacity 1s ease;
 }
+
+/*  Rain Animation */
+body.theme-rain::after {
+  opacity: 1;
+  background-image: 
+    linear-gradient(to bottom, transparent 80%, rgba(255, 255, 255, 0.4) 100%),
+    linear-gradient(to bottom, transparent 70%, rgba(255, 255, 255, 0.25) 100%);
+  background-size: 8px 120px, 15px 180px;
+  transform: rotate(10deg);
+  animation: rain-fall 0.4s linear infinite;
+}
+@keyframes rain-fall {
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 0 100vh, 0 100vh; }
+}
+
+/*  Storm Animation (Rain + Lightning) */
+body.theme-storm::after {
+  opacity: 1;
+  background-image: 
+    linear-gradient(to bottom, transparent 80%, rgba(255, 255, 255, 0.4) 100%),
+    linear-gradient(to bottom, transparent 70%, rgba(255, 255, 255, 0.3) 100%);
+  background-size: 8px 120px, 15px 180px;
+  transform: rotate(15deg);
+  animation: rain-fall 0.3s linear infinite, lightning-flash 6s infinite;
+}
+@keyframes lightning-flash {
+  0%, 94%, 98%, 100% { background-color: transparent; }
+  95%, 99% { background-color: rgba(255, 255, 255, 0.45); }
+}
+
+/*  Snow Animation */
+body.theme-snow::after {
+  opacity: 1;
+  background-image: 
+    radial-gradient(circle, white 2px, transparent 3px),
+    radial-gradient(circle, white 3px, transparent 4px),
+    radial-gradient(circle, rgba(255,255,255,0.5) 2px, transparent 3px);
+  background-size: 100px 100px, 150px 150px, 80px 80px;
+  background-position: 0 0, 50px 50px, 20px 20px;
+  animation: snow-fall 5s linear infinite;
+}
+@keyframes snow-fall {
+  0% { background-position: 0 -100px, 50px -150px, 20px -80px; }
+  100% { background-position: 20px 100vh, 80px 100vh, -20px 100vh; }
+}
+
+/*  Fog Animation */
+body.theme-fog::after {
+  opacity: 1;
+  background-image: 
+    radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 60%);
+  background-size: 150vw 100vh, 200vw 150vh;
+  background-position: 0 0, -50vw 20vh;
+  animation: fog-drift 12s linear infinite alternate;
+}
+@keyframes fog-drift {
+  0% { background-position: -20vw 0, -50vw 20vh; }
+  100% { background-position: 20vw 0, 10vw 20vh; }
+}
+
+/* Dynamic backgrounds based on weather theme */
+body.theme-clear {
+  background-image: url('https://images.unsplash.com/photo-1601297183305-6df142704ea2?auto=format&fit=crop&w=1920&q=80');
+}
+body.theme-cloudy {
+  background-image: url('https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1920&q=80');
+}
+body.theme-rain {
+  background-image: url('https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?auto=format&fit=crop&w=1920&q=80');
+}
+body.theme-storm {
+  background-image: url('https://images.unsplash.com/photo-1605727216801-e27ce1d0ce3c?auto=format&fit=crop&w=1920&q=80');
+}
+body.theme-snow {
+  background-image: url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?auto=format&fit=crop&w=1920&q=80');
+}
+body.theme-fog {
+  background-image: url('https://images.unsplash.com/photo-1487621167305-5d248087c724?auto=format&fit=crop&w=1920&q=80');
+}
