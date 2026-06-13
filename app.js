@@ -122,7 +122,7 @@ const elements = {
 let isCelsius = true;
 let currentWeatherData = null;
 
-const OPENWEATHER_API_KEY = "bb89d1ad0d33a1559538eea20cc4ce5b";
+const OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE"; // Add your key locally, but do not commit it
 const WEATHER_ENDPOINT = "https://api.openweathermap.org/data/2.5/weather";
 const GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/direct";
 const REVERSE_GEOCODE_ENDPOINT = "https://api.openweathermap.org/geo/1.0/reverse";
