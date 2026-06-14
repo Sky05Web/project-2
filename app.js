@@ -132,9 +132,9 @@ const PRELOAD_IMAGES = [
   'https://images.unsplash.com/photo-1487621167305-5d248087c724?auto=format&fit=crop&w=1920&q=80'  // fog
 ];
 
-const GEOCODE_ENDPOINT = "https://geocoding-api.open-meteo.com/v1/search";
-const FORECAST_ENDPOINT = "https://api.open-meteo.com/v1/forecast";
-const REVERSE_GEOCODE_ENDPOINT = "https://api.bigdatacloud.net/data/reverse-geocode-client";
+const GEOCODE_ENDPOINT = "https://geocoding-api.open-meteo.com/v1/search";    // Current Weather, Hourly Forecast (Next 12 hours), aur Daily Forecast (7 days)
+const FORECAST_ENDPOINT = "https://api.open-meteo.com/v1/forecast";   //city  naam
+const REVERSE_GEOCODE_ENDPOINT = "https://api.bigdatacloud.net/data/reverse-geocode-client"; // Current Location
 
 
 const DEFAULT_CITY = {
@@ -575,7 +575,32 @@ async function handleSearch(query) {
 }
 
 async function handleGeolocation() {
-  showToast("Current location feature is temporarily disabled.", "info");
+  if (!navigator.geolocation) {
+    showToast("Geolocation is not supported by your browser.", "error");
+    return;
+  }
+
+  setLoadingState(true);
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const { latitude, longitude } = position.coords;
+      try {
+        const locationData = await reverseGeocode(latitude, longitude);
+        elements.cityInput.value = locationData.name;
+        await loadWeatherForLocation(locationData);
+      } catch (error) {
+        showToast("Could not determine your location details.", "error");
+        setLoadingState(false);
+      }
+    },
+    (error) => {
+      let msg = error.code === 1 ? "Location access denied by user." : "Unable to retrieve your location.";
+      showToast(msg, "error");
+      setLoadingState(false);
+    },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+  );
 }
 
 // All UI event wiring lives here so app startup stays easy to follow.
